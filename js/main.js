@@ -495,7 +495,7 @@
   window.addEventListener("resize", () => { vw = window.innerWidth; vh = window.innerHeight; });
 
   const spawn = (p, initial) => {
-    p.size = rand(0.5, 0.85) * Math.max(vw, vh);
+    p.size = rand(0.45, 0.72) * Math.max(vw, vh);
     p.x = rand(-0.05, 1.05) * vw;
     p.y = rand(-0.05, 1.05) * vh;
     p.vx = rand(-14, 14);
@@ -535,7 +535,9 @@
   } else {
     let last = performance.now();
     const tick = (now) => {
-      const dt = Math.min(0.05, (now - last) / 1000);
+      // allow big steps so the smoke keeps its pace when frames come slowly;
+      // only clamp long pauses (e.g. returning to a background tab)
+      const dt = Math.min(0.25, (now - last) / 1000);
       last = now;
       pointer.vx *= Math.exp(-dt * 6);
       pointer.vy *= Math.exp(-dt * 6);

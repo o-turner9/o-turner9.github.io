@@ -286,12 +286,13 @@ main, .site-footer { position: relative; z-index: 2; }
   inset: 0 calc(50% - 50vw);
   pointer-events: none;
   background:
-    radial-gradient(38% 34% at 50% 42%, rgba(246,170,200,.55), transparent 70%),
-    radial-gradient(30% 30% at 22% 30%, rgba(255,190,165,.45), transparent 70%),
-    radial-gradient(32% 30% at 80% 34%, rgba(205,175,240,.45), transparent 70%),
-    radial-gradient(34% 28% at 34% 76%, rgba(244,155,190,.4), transparent 70%),
-    radial-gradient(30% 26% at 72% 74%, rgba(250,225,150,.35), transparent 70%);
-  filter: blur(24px);
+    radial-gradient(42% 38% at 50% 42%, rgba(246,170,200,.5), rgba(246,170,200,.18) 45%, transparent 82%),
+    radial-gradient(34% 34% at 22% 30%, rgba(255,190,165,.42), rgba(255,190,165,.14) 45%, transparent 82%),
+    radial-gradient(36% 34% at 80% 34%, rgba(205,175,240,.42), rgba(205,175,240,.14) 45%, transparent 82%),
+    radial-gradient(38% 32% at 34% 76%, rgba(244,155,190,.38), rgba(244,155,190,.12) 45%, transparent 82%),
+    radial-gradient(34% 30% at 72% 74%, rgba(250,225,150,.32), rgba(250,225,150,.1) 45%, transparent 82%);
+  /* no blur filter: soft gradient stops instead, so the glow is cheap to animate */
+  will-change: transform;
   -webkit-mask: linear-gradient(#000 70%, transparent);
   mask: linear-gradient(#000 70%, transparent);
   animation: glow-drift 18s ease-in-out infinite alternate;
