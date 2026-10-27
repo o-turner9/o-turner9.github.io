@@ -308,11 +308,12 @@ main, .site-footer { position: relative; z-index: 2; }
   position: relative;
   isolation: isolate;
   display: grid;
-  place-content: center;
+  grid-template-columns: minmax(0, 1fr);   /* full panel width, so the stitched name can fill it */
+  align-content: center;
   justify-items: center;
-  width: min(96vw, 1100px);
+  width: min(97vw, 1260px);
   aspect-ratio: 1609 / 1051;
-  padding: 8.5% 16.5%;
+  padding: 8% 15%;
 }
 .hero__doily::before {
   content: "";
@@ -376,9 +377,11 @@ main, .site-footer { position: relative; z-index: 2; }
 
 .hero__lede {
   max-width: 44ch;
-  margin: var(--space-3) auto var(--space-4);
-  font-size: var(--step-1);
-  line-height: 1.5;
+  /* tucked up under the stitched name (its canvas has a little empty space below the letters) */
+  margin: -.35em auto var(--space-4);
+  font-family: var(--font-hand);
+  font-size: clamp(1.9rem, 1.4rem + 1.6vw, 2.7rem);
+  line-height: 1.1;
 }
 
 .hero .scrap > span { font-size: 1.9rem; padding: .6rem 1.6rem; }
@@ -803,7 +806,7 @@ main, .site-footer { position: relative; z-index: 2; }
   transform: rotate(-2deg);
 }
 
-.chapter { justify-content: center; align-items: flex-start; }
+.chapter { justify-content: center; align-items: center; text-align: center; }
 .chapter__wash {
   position: absolute;
   width: 95%;
@@ -826,11 +829,12 @@ main, .site-footer { position: relative; z-index: 2; }
 }
 .chapter h3 {
   position: relative;
-  margin: 0 0 .6rem;
+  margin: 0;
   font-family: var(--font-script);
   font-weight: 400;
-  font-size: clamp(2.2rem, 1.3rem + 3vw, 3.6rem);
+  font-size: clamp(2.4rem, 1.4rem + 3.4vw, 4rem);
   line-height: 1.25;
+  text-wrap: balance;
 }
 .chapter p {
   position: relative;
@@ -973,13 +977,15 @@ main, .site-footer { position: relative; z-index: 2; }
 .about {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  grid-template-areas: "photo text" "photo swatch";
+  grid-template-areas: "photo text" "swatch text";
+  grid-template-rows: auto 1fr;
   gap: var(--space-4) clamp(2rem, 6vw, 5rem);
   align-items: start;
 }
 .about__photo { grid-area: photo; position: relative; justify-self: center; margin-top: 1rem; }
 .about__photo .tape { top: -10px; left: 50%; margin-left: -42px; transform: rotate(3deg); }
 .about__text { grid-area: text; max-width: var(--measure); }
+.about__text p { font-size: var(--step-1); line-height: 1.6; }
 .about__lede { font-size: var(--step-1); line-height: 1.5; }
 
 .polaroid {
@@ -990,7 +996,8 @@ main, .site-footer { position: relative; z-index: 2; }
   box-shadow: 0 2px 2px rgba(70,45,35,.12), 0 20px 30px -18px rgba(70,45,35,.55);
   transform: rotate(-3deg);
 }
-.polaroid img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.polaroid img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 32%; }
+.polaroid .polaroid__caption { font-family: var(--font-body); font-size: 1.3rem; letter-spacing: .04em; }
 .polaroid__placeholder {
   display: grid;
   place-items: center;
@@ -1003,7 +1010,8 @@ main, .site-footer { position: relative; z-index: 2; }
 
 .swatch-card {
   grid-area: swatch;
-  justify-self: start;
+  justify-self: center;   /* centred under the photo */
+  align-self: start;
   position: relative;
   padding: 1.4rem 1.8rem 1.6rem 2rem;
   max-width: 340px;
@@ -1079,6 +1087,15 @@ main, .site-footer { position: relative; z-index: 2; }
 .resume__block dt { font-weight: 600; margin-top: .6rem; }
 .resume__block dt:first-child { margin-top: 0; }
 .resume__block dd { margin: .1rem 0 0; color: var(--ink-soft); }
+.resume__block--wide { grid-column: 1 / -1; }
+.resume__date { float: right; margin-left: 1rem; font-weight: 500; font-size: .9em; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.resume__projects { display: grid; gap: 1.3rem; }
+.resume__projects dt { margin-top: 0; font-size: 1.08em; }
+.resume__projects dd { max-width: 75ch; }
+.resume__projects .resume__tools { font-style: italic; margin-bottom: .2rem; }
+.resume__skills { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: .4rem 1.2rem; }
+.resume__skills dt, .resume__skills dd { margin: 0; }
+#resume .scrap { --r: -1deg; }
 
 /* contact: envelope */
 #contact { display: grid; place-items: center; }
@@ -1112,8 +1129,15 @@ main, .site-footer { position: relative; z-index: 2; }
 .stamp img { width: 100%; aspect-ratio: 1; object-fit: cover; }
 
 .contact__lede { max-width: 44ch; font-size: var(--step-1); line-height: 1.5; margin: 0 0 var(--space-3); }
-.contact__links { margin: 0; padding: 0; list-style: none; display: grid; gap: .4rem; }
-.contact__links a { font-family: var(--font-hand); font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.2rem); line-height: 1.2; }
+.contact__links { margin: 0; padding: 0; list-style: none; display: grid; gap: 1rem; }
+.contact__links li { display: grid; gap: .05rem; min-width: 0; }
+.contact__label { font-size: .95rem; font-weight: 600; color: var(--ink-soft); }
+.contact__links a {
+  font-family: var(--font-hand);
+  font-size: clamp(2rem, 1.4rem + 2vw, 2.9rem);
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
 
 /* footer */
 .site-footer { padding: var(--space-4) var(--gutter) var(--space-5); text-align: center; }
@@ -1170,6 +1194,9 @@ main, .site-footer { position: relative; z-index: 2; }
 }
 .viewer__meta { margin: 0 0 1rem; color: var(--ink-soft); font-size: .95rem; }
 .viewer__caption { margin: 0 0 1.5rem; }
+.viewer__link { align-self: flex-start; margin-bottom: 1.5rem; }
+.viewer__link[hidden] { display: none; }
+.viewer__link > span { font-size: 1.4rem; }
 .viewer__nav { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: auto; }
 .viewer__nav .scrap > span { font-size: 1.35rem; }
 .viewer__nav .scrap:last-child { --r: 1.5deg; }
@@ -1212,9 +1239,9 @@ main, .site-footer { position: relative; z-index: 2; }
   .stamp { width: 70px; }
   .tab { font-size: 1rem; height: 70px; }
   .sew-btn { width: calc(var(--s) * .72); height: calc(var(--s) * .72); }
-  .hero__doily { width: 94vw; aspect-ratio: 1051 / 1609; padding: 24% 13.5%; }
+  .hero__doily { width: 96vw; aspect-ratio: 1051 / 1609; padding: 24% 11.5%; }
   .hero__doily::before { background-image: url("../assets/textures/doily-portrait.webp"); }
-  .hero__lede { font-size: 1.05rem; }
+  .hero__lede { font-size: 1.6rem; }
   .home-butterfly { width: 54px; height: 54px; }
   .doodle-arrow { width: 50px; }
   .lace-band { height: 80px; background-size: auto 80px; }

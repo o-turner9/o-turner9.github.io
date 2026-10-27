@@ -59,12 +59,11 @@
 
       <!-- the doily image goes behind this block (see .hero__doily in style.css) -->
       <div class="hero__doily">
-        <p class="hand hero__hello">hi, welcome in!</p>
         <h1 class="hero__name" id="hero-name">
           <span class="sr-only">Olivia Turner</span>
           <canvas class="stitch-name" aria-hidden="true"></canvas>
         </h1>
-        <p class="hero__lede">[Painter, wearable sculptor and 3D artist. One sentence on what you make and where you're based.]</p>
+        <p class="hero__lede">Multidisciplinary immersive media designer</p>
       </div>
 
       <!-- doodled swirl arrow down to the sketchbook, in the butterfly's plum -->
@@ -125,29 +124,27 @@
           <div class="about">
             <div class="about__photo">
               <figure class="polaroid">
-                <!-- Replace with a photo of you: <img src="assets/me.jpg" alt="Olivia in the studio" width="800" height="1000"> -->
-                <div class="polaroid__placeholder">[your photo here]</div>
-                <figcaption class="hand">[me, in the studio]</figcaption>
+                <img src="assets/me.webp" alt="Olivia Turner smiling, sitting on a garden bench in a turquoise paisley dress" width="1000" height="1333" loading="lazy">
+                <figcaption class="polaroid__caption">ヾ(＾-＾)ノ</figcaption>
               </figure>
               <span class="tape tape--rose" aria-hidden="true"></span>
             </div>
 
             <div class="about__text">
               <h2 class="script-title" id="about-title">About me</h2>
-              <p class="about__lede">[Two or three sentences in your own voice: who you are, where you study or work, and what you make.]</p>
-              <p>[A short paragraph on how you work: soft gradients, materials you pull from everyday life, building on the body, moving between paint and Unreal Engine. Whatever feels true.]</p>
-              <p>[One more line on what you're working toward, or the kinds of projects you'd love to be part of.]</p>
+              <p>I’m an immersive media designer focused on visual storytelling and creating engaging digital experiences. I work across 3D environments, branding, and multimedia, using tools like Unreal Engine and Adobe Creative Suite to turn simple ideas into meaningful, interactive content. I’m especially interested in projects that blur the line between physical and digital, transforming everyday objects into something more intentional and expressive.</p>
+              <p>Outside of design, I’m always creating, whether that’s knitting, crafting, or exploring new artistic ideas. I also love staying active through hiking and tennis, and I’m driven by a desire to travel, experience new environments, and draw inspiration from different cultures.</p>
             </div>
 
             <aside class="swatch-card" aria-labelledby="swatch-title">
               <span class="sew-btn sew-btn--sewn" data-button="pink-16" style="--x:auto; --y:-14px; --s:34px; --r:8deg; right:-12px" aria-hidden="true"></span>
               <h3 class="hand swatch-card__title" id="swatch-title">things I love</h3>
               <ul class="hand stitch-list">
-                <li>[knitting late at night]</li>
-                <li>[pastel everything]</li>
-                <li>[thrifted buttons]</li>
-                <li>[jellyfish]</li>
-                <li>[zines and scrapbooks]</li>
+                <li>Knitting</li>
+                <li>Traveling</li>
+                <li>Hiking and the outdoors</li>
+                <li>Crafting</li>
+                <li>Tennis</li>
               </ul>
             </aside>
           </div>
@@ -168,49 +165,54 @@
               <section class="resume__block" aria-labelledby="r-edu">
                 <h3 id="r-edu">Education</h3>
                 <dl>
-                  <dt>[School name]</dt>
-                  <dd>[Degree and major], [years]</dd>
-                </dl>
-              </section>
-
-              <section class="resume__block" aria-labelledby="r-shows">
-                <h3 id="r-shows">Exhibitions</h3>
-                <dl>
-                  <dt>[Show title]</dt>
-                  <dd>[Venue, city], [year]</dd>
-                  <dt>[Show title]</dt>
-                  <dd>[Venue, city], [year]</dd>
+                  <dt>University of Maryland <span class="resume__date">2021–2026</span></dt>
+                  <dd>Bachelor of Arts, Immersive Media Design</dd>
+                  <dd>Honors College: Design, Culture &amp; Creativity</dd>
                 </dl>
               </section>
 
               <section class="resume__block" aria-labelledby="r-exp">
                 <h3 id="r-exp">Experience</h3>
                 <dl>
-                  <dt>[Role], [place]</dt>
-                  <dd>[Years]. [One line on what you did.]</dd>
-                  <dt>[Role], [place]</dt>
-                  <dd>[Years]. [One line on what you did.]</dd>
+                  <dt>Gym Operations Lead &amp; Program Instructor <span class="resume__date">2023–present</span></dt>
+                  <dd>Movement Gyms, Rockville, Maryland</dd>
+                  <dd>Coordinated climbing sessions and program schedules for hundreds of participants, and was a front-facing problem-solver for members in a fast-paced, safety-focused setting.</dd>
                 </dl>
               </section>
 
-              <section class="resume__block" aria-labelledby="r-skills">
-                <h3 id="r-skills">Tools and materials</h3>
-                <ul class="hand stitch-list stitch-list--cols">
-                  <li>acrylic and oil painting</li>
-                  <li>wearable sculpture and textiles</li>
-                  <li>illustration and poster design</li>
-                  <li>[Processing]</li>
-                  <li>Maya</li>
-                  <li>Unreal Engine</li>
-                  <li>[Illustrator and Photoshop]</li>
-                  <li>[knitting]</li>
-                </ul>
+              <section class="resume__block resume__block--wide" aria-labelledby="r-projects">
+                <h3 id="r-projects">Projects</h3>
+                <dl class="resume__projects">
+                  <div>
+                    <dt>Artchive, VR art preservation &amp; exhibition platform <span class="resume__date">Feb 2025</span></dt>
+                    <dd class="resume__tools">Unreal Engine, Maya, C++, Oculus Meta Quest</dd>
+                    <dd>A virtual reality platform for emerging artists to preserve, organize and exhibit their work beyond the limits of physical storage: an immersive VR gallery where users upload work, customize exhibition spaces and display pieces in a more engaging format than a static online portfolio.</dd>
+                  </div>
+                  <div>
+                    <dt>Reliquary World, Unreal Engine interactive environment <span class="resume__date">Oct 2024</span></dt>
+                    <dd class="resume__tools">Unreal Engine, Maya, photogrammetry, material design, real-time rendering</dd>
+                    <dd>A narrative-driven project that captures an everyday object through photogrammetry, reconstructs it as a high-fidelity 3D asset, and recontextualizes it as a digital “reliquary” inside an immersive environment with custom models and dynamic lighting.</dd>
+                  </div>
+                  <div>
+                    <dt>Google, design consultant <span class="resume__date">Feb 2022</span></dt>
+                    <dd class="resume__tools">Adobe Illustrator, Adobe Photoshop</dd>
+                    <dd>Created the visual identity for a Google internal training summit: four logo concepts built around clarity, energy and cross-functional collaboration, with the selected design used across all summit materials.</dd>
+                  </div>
+                </dl>
+              </section>
+
+              <section class="resume__block resume__block--wide" aria-labelledby="r-skills">
+                <h3 id="r-skills">Skills</h3>
+                <dl class="resume__skills">
+                  <dt>Software</dt>
+                  <dd>Unreal Engine, Unity, Maya, Blender, Adobe Photoshop, Adobe Illustrator, TouchDesigner</dd>
+                  <dt>Technical</dt>
+                  <dd>JavaScript, C++, HTML, CSS, Python, 3D modeling</dd>
+                </dl>
               </section>
             </div>
 
-            <!-- When your resume PDF is ready, save it as assets/resume.pdf and uncomment this:
-            <a class="scrap" href="assets/resume.pdf" download><span class="torn" data-torn="scrap">download my resume (PDF)</span></a>
-            -->
+            <a class="scrap" href="assets/olivia-turner-resume.pdf" download="Olivia-Turner-Resume.pdf"><span class="torn" data-torn="scrap">download my resume (PDF)</span></a>
           </div>
         </div>
       </div>
@@ -223,11 +225,11 @@
           <img src="assets/works/thumb/img-8244.webp" alt="" width="160" height="160" loading="lazy">
         </div>
         <h2 class="script-title" id="contact-title">Say hello</h2>
-        <p class="contact__lede">[A line inviting people to reach out: commissions, collaborations, or just to talk about yarn.]</p>
         <ul class="contact__links">
-          <li><a href="mailto:you@example.com">[you@example.com]</a></li>
-          <li><a href="https://instagram.com/" rel="noopener">[Instagram @handle]</a></li>
-          <li><a href="https://www.linkedin.com/" rel="noopener">[LinkedIn]</a></li>
+          <li><span class="contact__label">email</span> <a href="mailto:oliviag.turner9@gmail.com">oliviag.turner9@gmail.com</a></li>
+          <li><span class="contact__label">LinkedIn</span> <a href="https://www.linkedin.com/in/olivia-turner9" rel="noopener">linkedin.com/in/olivia-turner9</a></li>
+          <li><span class="contact__label">project portfolio</span> <a href="https://canva.link/2ehteuhtep7hdjl" rel="noopener">view on Canva</a></li>
+          <li><span class="contact__label">resume</span> <a href="assets/olivia-turner-resume.pdf" download="Olivia-Turner-Resume.pdf">download PDF</a></li>
         </ul>
       </div>
     </section>
@@ -239,7 +241,7 @@
       <span class="sew-btn sew-btn--inline" data-button="blue-15" style="--s:32px; --r:12deg"></span>
       <span class="sew-btn sew-btn--inline" data-button="pink-11" style="--s:26px; --r:-3deg"></span>
     </div>
-    <p class="hand">made by hand (and a little code) by Olivia Turner, <span data-year>2026</span></p>
+    <p class="hand">crafted by Olivia Turner <span data-year>2026</span></p>
   </footer>
 
   <dialog class="viewer" aria-labelledby="viewer-title">
@@ -253,6 +255,7 @@
         <h3 class="viewer__title" id="viewer-title"></h3>
         <p class="viewer__meta"></p>
         <p class="viewer__caption"></p>
+        <a class="scrap viewer__link" href="#" target="_blank" rel="noopener" hidden><span class="torn" data-torn="scrap">open the PDF</span></a>
         <div class="viewer__nav">
           <button class="scrap" type="button" data-step="-1"><span class="torn" data-torn="scrap">previous piece</span></button>
           <button class="scrap" type="button" data-step="1"><span class="torn" data-torn="scrap">next piece</span></button>

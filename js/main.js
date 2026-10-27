@@ -122,15 +122,15 @@
     return `
       <figure class="piece${corner ? " piece--corner" : ""}" style="--tilt:${tilt}deg">
         ${tape ? `<span class="tape tape--${tape}" style="--tape-tilt:${-tilt * 2}deg" aria-hidden="true"></span>` : ""}
-        <button class="piece__button" type="button" data-piece="${item._i}" aria-label="View ${esc(item.title)} larger">${media}</button>
+        <button class="piece__button" type="button" data-piece="${item._i}" aria-label="View ${esc(item.title)} larger">${media}${item.video ? '<span class="piece__play">video</span>' : ""}</button>
         <figcaption>${esc(item.title)}${year}</figcaption>
       </figure>`;
   };
 
-  const piecesPage = (items, pageInChapter) => {
+  const piecesPage = (items, pageInChapter, stack) => {
     const n = items.length;
     const allLandscape = items.every((it) => it.w > it.h * 1.1);
-    const layout = n === 1 || allLandscape ? "rows" : "cols";
+    const layout = n === 1 || allLandscape || stack ? "rows" : "cols";
     const page = el("div", { class: `page ${PAPERS[pageInChapter % PAPERS.length]}` });
     page.innerHTML = `<div class="page__inner"><div class="pieces pieces--${layout}" style="--n:${n}">
       ${items.map((it, k) => pieceHTML(it, pageInChapter + k, n)).join("")}</div></div>`;
@@ -146,24 +146,25 @@
     if (pages.length % 2 === 1) addPage(notesPage("notes & doodles"), "notes");
 
     const opener = el("div", { class: "page page--dots" });
-    const count = chapter.pages.reduce((sum, p) => sum + p.length, 0);
     opener.innerHTML = `
       <div class="page__inner chapter" style="--wash: var(--${chapter.color})">
         <span class="chapter__wash" aria-hidden="true"></span>
         <span class="chapter__lace" aria-hidden="true"></span>
         <h3>${esc(chapter.title)}</h3>
-        <p>${esc(chapter.note)}</p>
-        <p class="chapter__count">${count} ${count === 1 ? "piece" : "pieces"}</p>
       </div>`;
     chapterStarts.push(addPage(opener, "chapter"));
 
-    chapter.pages.forEach((items, p) => {
+    chapter.pages.forEach((page, p) => {
+      // a page is a list of pieces, or { stack, left, items }
+      const items = Array.isArray(page) ? page : page.items;
+      // left-hand pages have odd indexes (the cover sits alone on the right)
+      if (page.left && pages.length % 2 === 0) addPage(notesPage("notes & doodles"), "notes");
       items.forEach((item) => {
         item._i = allPieces.length;
         item._chapter = chapter;
         allPieces.push(item);
       });
-      const idx = addPage(piecesPage(items, p), "pieces");
+      const idx = addPage(piecesPage(items, p, page.stack), "pieces");
       items.forEach((item) => { item._page = idx; });
     });
   });
@@ -316,18 +317,30 @@
   const vTitle = viewer.querySelector(".viewer__title");
   const vMeta = viewer.querySelector(".viewer__meta");
   const vCaption = viewer.querySelector(".viewer__caption");
+  const vLink = viewer.querySelector(".viewer__link");
   let current = 0;
 
   const showPiece = (i) => {
     current = (i + allPieces.length) % allPieces.length;
     const item = allPieces[current];
-    vMedia.innerHTML = item.type === "video"
-      ? `<video src="${VIDEO}/${item.src}.mp4" poster="${VIDEO}/${item.src}-poster.webp" controls muted loop playsinline ${reduceMotion ? "" : "autoplay"} width="${item.w}" height="${item.h}" aria-label="${esc(item.alt)}"></video>`
-      : `<img src="${WORKS}/full/${item.src}.webp" alt="${esc(item.alt)}" width="${item.w}" height="${item.h}">`;
+    const autoplay = reduceMotion ? "" : "autoplay";
+    if (item.type === "video") {
+      vMedia.innerHTML = `<video src="${VIDEO}/${item.src}.mp4" poster="${VIDEO}/${item.src}-poster.webp" controls muted loop playsinline ${autoplay} width="${item.w}" height="${item.h}" aria-label="${esc(item.alt)}"></video>`;
+    } else if (item.video) {
+      // a still in the book, with its full video in the enlarged view
+      vMedia.innerHTML = `<video src="${VIDEO}/${item.video}.mp4" poster="${WORKS}/full/${item.src}.webp" controls muted loop playsinline ${autoplay} width="${item.w}" height="${item.h}" aria-label="${esc(item.alt)}"></video>`;
+    } else {
+      vMedia.innerHTML = `<img src="${WORKS}/full/${item.src}.webp" alt="${esc(item.alt)}" width="${item.w}" height="${item.h}">`;
+    }
     vTitle.textContent = item.title;
     vMeta.textContent = [item.year, item.medium, item._chapter.title].filter(Boolean).join(", ");
     vCaption.textContent = item.caption || "";
     vCaption.hidden = !item.caption;
+    vLink.hidden = !item.pdf;
+    if (item.pdf) {
+      vLink.href = item.pdf;
+      vLink.querySelector("span").textContent = item.pdfLabel || "open the PDF";
+    }
   };
 
   document.addEventListener("click", (e) => {
@@ -346,6 +359,7 @@
     if (e.key === "ArrowLeft") showPiece(current - 1);
   });
   viewer.addEventListener("close", () => {
+    if (viewer.open) return;   // reopened before this event arrived
     vMedia.innerHTML = "";
     const target = allPieces[current]._page;
     if (flip && target != null) {
